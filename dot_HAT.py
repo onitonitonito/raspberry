@@ -4,7 +4,7 @@ from datetime import datetime
 from random import randrange
 
 from sense_hat import SenseHat
-from dot_8x32.greeting import DICT, TABLE, sendh, sendv
+from dot_8x32.greeting import DICT, TABLE, sendh, sendv, get_greeting
 
 hat = SenseHat()
 hat.rotation = 0

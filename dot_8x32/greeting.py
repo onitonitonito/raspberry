@@ -4,8 +4,7 @@ from datetime import datetime
 
 import max7219.led as led
 from max7219.font import proportional, SINCLAIR_FONT, TINY_FONT, CP437_FONT
-
-import func_dot, clear
+from . import clear, func_dot
 
 lcdh = led.matrix(cascaded=4, vertical=True)
 lcdv = led.matrix(cascaded=4, vertical=False)
@@ -59,7 +58,7 @@ def sendh(txt,n,delay=0.02,font=SINCLAIR_FONT):
         lcdh.show_message(txt, delay=delay, font=proportional(CP437_FONT))
         print("show_h ---> %i times of %i :: run %.2f%%"%( i+1, n , float( 100*(i+1)/n) ) )
 
-def sendv(txt,n,delay=0.06,,font=SINCLAIR_FONT):
+def sendv(txt,n,delay=0.06,font=SINCLAIR_FONT):
     for i in range(n):
         lcdv.show_message(txt, delay=delay, font=font)
         print("show_v ---> %i times of %i :: run %.2f%%"%( i+1, n , float( 100*(i+1)/n) ) )
@@ -72,7 +71,7 @@ def sendv(txt,n,delay=0.06,,font=SINCLAIR_FONT):
 #     lcdh.flush()
 #     lcdv.flush()
 
-def main():
+def main(lcdh):
     # txt = "%s  HELLO Raspberry Pi World! is going to be a whole new game.. \
     # I hope you guys have a wonderful day & always remember I LOVE YOU, ^_^*   "%get_greeting_message()
 
@@ -86,13 +85,13 @@ def main():
     print
     print(txt)
 
-    clear.main()
+    clear.main(lcdh)
     sendh(txt,2)
-    clear.main()
+    clear.main(lcdh)
 
 
 
 
 # When import, it would not run..
 if __name__ == '__main__':
-    main()
+    main(lcdh)
