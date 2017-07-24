@@ -5,6 +5,7 @@ from random import randrange
 
 from sense_hat import SenseHat
 from dot_8x32.greeting import DICT, TABLE, sendh, sendv, get_greeting
+from dot_8x32 import func_dot
 
 hat = SenseHat()
 hat.rotation = 0
@@ -44,7 +45,7 @@ def main(hat):
 
 		time.sleep(7)
 
-	func.main()
+	func_dot.main()
 
 # When import, it would not run..
 if __name__ == '__main__':
