@@ -108,11 +108,11 @@ def Scrolling_pixel():
 def main():
 	#Chay ham ban muon tai day
 
-	Brightness()    # Change Brightness with 'A'
+	#Brightness()    # Change Brightness with 'A'
 	#Orientation()    # Rotating '1'
 	#scroll_down()    # set down vertical 'R'
 	#Inverse()
-	#Font(0.01)        # delay=0.01, change font
+	Font(0.01)        # delay=0.01, change font
 	#CP437_Characters()
 	#Scrolling_pixel()
 

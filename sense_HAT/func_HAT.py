@@ -3,18 +3,27 @@ import time
 
 from datetime import datetime
 from sense_hat import SenseHat
-from ..dot_8x32.greeting import TABLE, DICT #-----
+# from ..dot_8x32.greeting import TABLE, DICT #-----
 
 hat = SenseHat()
 hat.rotation = 0
 hat.low_light = True
 
+TABLE='''   %s
+	+------------+-------------+
+	| Temprature |    %.1f'c   |
+	+------------+-------------+
+	|  Humidity  |    %.1f%%    |
+	+------------+-------------+
+	|  Pressure  | %4.2f mmb |
+	+------------+-------------+'''
+
 def get_color():
 	color = {
-		red : 	[255, 	0, 		0],
-		green : [0,		150, 	0],
-		blue : 	[0,		100,	255],
-		white :	[130,	130,	130],
+		'red' : 	[255, 	0, 		0],
+		'green' : [0,		150, 	0],
+		'blue' : 	[0,		100,	255],
+		'white' :	[130,	130,	130],
 	}
 
 def get_sense(hat):     # return (temp, humid, press as float)
@@ -30,7 +39,7 @@ sense = get_sense(hat)		# <class 'dict'> = sense
 table = TABLE %("DT()", sense['temp'], sense['humid'], sense['press'])
 
 txt_01="HELLO SenseHat World!.. "
-txt_02 ="Temp=%.1f'C.. " %sense['temp']
+txt_02="Temp=%.1f'C.. " %sense['temp']
 txt_03="Humid=%.1f%%.. " %sense['humid']
 txt_04="Press= %6.2f mmBars.. " %sense['press']
 

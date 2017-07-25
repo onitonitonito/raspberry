@@ -54,32 +54,38 @@ def display_readings(hat):
 
     hat.set_pixels([pixel for row in screen for pixel in row])
 
+
 def show_text(hat):
-	hat.show_message( "%.1f"%hat.temperature, text_colour=RED,scroll_speed=0.03); sleep(0.5)
-	hat.show_message( "%.1f"%hat.humidity, text_colour=BLUE,scroll_speed=0.03); sleep(0.5)
-	hat.show_message( "%4.2f"%hat.pressure, text_colour=GREEN,scroll_speed=0.03); sleep(0.5)
+	hat.show_message("%.1f"%hat.temperature, text_colour=RED,scroll_speed=0.03); sleep(0.5)
+	hat.show_message("%.1f"%hat.humidity, text_colour=BLUE,scroll_speed=0.03); sleep(0.5)
+	hat.show_message("%4.2f"%hat.pressure, text_colour=GREEN,scroll_speed=0.03); sleep(0.5)
+
 
 def echo_text(hat):
-    dt = datetime.now()
-    date = dt.strftime("%H:%M:%S - %h %dth (%a), %Y")
-    TABLE='''
-        %s
-    	+------------+-------------+
-    	| Temprature |    %.1f'c   |
-    	+------------+-------------+
-    	|  Humidity  |    %.1f%%    |
-    	+------------+-------------+
-    	|  Pressure  | %4.2f mmb |
-    	+------------+-------------+''' %(
-        date, hat.temperature, hat.humidity, hat.pressure  )
-    print(TABLE, end="\n\n")
+	dt = datetime.now()
+	date = dt.strftime("%p %l:%M:%S - %h %dth (%a), %Y")
+	TABLE='''
+		%s
+		+------------+-------------+
+		| Temprature |    %.1f'c   |
+		+------------+-------------+
+		|  Humidity  |    %.1f%%    |
+		+------------+-------------+
+		|  Pressure  | %4.2f mmb |
+		+------------+-------------+''' % (
+	date, hat.temperature, hat.humidity, hat.pressure)
+
+	print(TABLE, end="\n\n")
+
 
 def main(hat):
-    display_readings(hat)
-    sleep(60)
-    show_text(hat)
-
-while True:
     for i in range(5):
-        echo_text(hat)      # echo to ..CONSOLE
-        main(hat)              # show bars on HAT
+        echo_text(hat)         # echo to ..CONSOLE
+
+        display_readings(hat)  # show bars
+        sleep(60)              # wait 60 sec.
+        show_text(hat)         # Show text
+
+
+if __name__ == '__main__':
+    main(hat)

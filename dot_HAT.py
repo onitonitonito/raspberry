@@ -1,52 +1,30 @@
 #!/usr/bin/python3
 import time
-from datetime import datetime
-from random import randrange
+import echo_HAT as eh
 
-from sense_hat import SenseHat
-from dot_8x32.greeting import DICT, TABLE, sendh, sendv, get_greeting
-from dot_8x32 import func_dot
+from dot_8x32 import func_dot as fd     # font(0.01)
+from dot_8x32 import message as ms     # DICT, TABLE, sendh, sendv, get_greeting
+from dot_8x32 import clear as dc
 
-hat = SenseHat()
-hat.rotation = 0
-hat.low_light = True
+from sense_HAT import bars
+from sense_HAT import clear as hc
 
-def get_sense(hat):     # return (temp, humid, press as float)
-    sense = {
-        'temp'  : hat.temperature,
-        'humid' : hat.humidity,
-        'press' : hat.pressure,
-    }
-    return sense
+mssg = eh.get_message()      # <class 'array'> message
+message = "%s %s %s %s"% (mssg[0],mssg[1],mssg[2],mssg[3])
 
-def echo_text(hat):
-	sense = get_sense(hat)      # <class 'DICT'>    **sense
-	greeting = get_greeting()	# from dot_8x32.greeing.py
+def main():
+	bars.display_readings(bars.hat)
 
-	txt01="%s.. \nHELLO SenseHat!.. this is with 8x32 DOT.. \n" % greeting
-	txt02="Temp=%.1f'C " % sense['temp']
-	txt03="Humid=%.1f %% " % sense['humid']
-	txt04="Press=%6.2fmmBars " % sense['press']
-
-	dt = datetime.now()
-	date = dt.strftime("%H:%M:%S - %h %dth (%a), %Y")
-
-	global mssg
-	table = TABLE % (date, sense['temp'], sense['humid'], sense['press'] )
-	mssg = "%s\n%s %s %s"%(txt01,txt02,txt03,txt04)
-
-	print(table, end="\n\n")
-	print(mssg)
-
-def main(hat):
 	for i in range(2):
-		echo_text(hat)
-		sendh(mssg,1)
-
+		eh.echo_text(eh.hat)
+		ms.sendh(message, 1, font=ms.proportional(ms.SINCLAIR_FONT))
 		time.sleep(7)
 
-	func_dot.main()
+	hc.main(hc.hat)
+	fd.main()
+	dc.main(dc.led)
+
 
 # When import, it would not run..
 if __name__ == '__main__':
-	main(hat)
+	main()
