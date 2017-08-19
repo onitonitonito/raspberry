@@ -1,7 +1,8 @@
-import os, sys, csv, random
+import os, sys, csv, random, time
 from datetime import datetime
 # from sense_HAT import func_HAT as fh    # get_sense, TABLE
-
+''' change sense_HAT module @ RPI3
+'''
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -15,14 +16,16 @@ def get_variable():
 
     HELP_MESSAGE='''\n\n\
     ====================================================
-               log_HAT.PY -- HELP MESSAGE
+               log.PY -- HELP MESSAGE
     ---------------------------------------------------
     This is simple example of read & write file funtion
-
-    USAGE:    python log_HAT.py {mode}, [args1]
+    USAGE:    python log.py {mode} [args1] [args2]
     =====
-       -a, --append:     ADD log = args1
-       -v, --verbose:    VIEW log w/o args1
+     -a: ADD  1.py -a(add)  -t(intervla) -n(number)
+     -v: VIEW 1.py -v(view) -n(number)
+
+        e.g: 1.py -a -t1800 -n6     :every 30m, 3 hr
+             1.py -v -n30           :view last 30 data
     ----------------------------------------------------
     '''
 
@@ -36,50 +39,58 @@ def is_dir():
     if not os.path.isdir(DESTIN_DIR):
         os.mkdir(DESTIN_DIR)
         return False
-    else: 
+    else:
         return True
 
 
 def is_logfile():
-    if not os.path.exists(DESTIN_DIR+MY_HAT):
-        f = open(DESTIN_DIR+MY_HAT, 'w', encoding='utf8')
-        f.write('****** START LOG : time_log(6), temp, humid, press \n')
-        f.close()     # write HEADER in 1st.line
+    if not os.path.exists(DESTIN_DIR + MY_HAT):
+        with open(DESTIN_DIR + MY_HAT, 'w', encoding='utf8') as f:
+            f.write('****** START LOG : time_log(6), temp, humid, press \n')
+            # f = open(DESTIN_DIR + MY_HAT, 'w', encoding='utf8')
+            # f.close()     # write HEADER in 1st.line
         return False
-    else: 
+    else:
         return True
 
 
 def count_lines():      # return <class 'int'>
-    with open(DESTIN_DIR+MY_HAT, 'r') as f:
-         line_number = len(f.readlines())        # len(<class 'list'>)
+    with open(DESpTIN_DIR+MY_HAT, 'r') as f:
+        line_number = len(f.readlines())        # len(<class 'list'>)
+        # f = open(DESpTIN_DIR+MY_HAT, 'r')
+        # f.close()
     return line_number
 
 
-def add_lines():
-    # sense = fh.get_sense(fh.hat)   # <class 'dict'> -- temp, humid, press
-    sense = {
-        'temp': random.randint(800,1000),
-        'humid': random.randint(800,1000),
-        'press': random.randint(800,1000),
-    }
-
-    dt = datetime.now()
-    ctime = dt.strftime("%l:%M:%S, %p, %Y-%m-%d") # pm 05:34:57 July 16 Mon 2017
-    data = ctime + ", %s, %s, %s\n" % (sense['temp'], sense['humid'], sense['press'])
+def add_lines(interval=10, count=3):
     lines = count_lines()   # get <class 'int'>
 
     with open(DESTIN_DIR+MY_HAT, 'a', encoding='utf8') as f:
-        print("%s-line's added=" % str(lines+1), data)
-        f.write(data)
+        for n in range(count):
+            # sense = fh.get_sense(fh.hat)   # <class 'dict'> -- temp, humid, press
+            sense = {
+                'temp': random.randint(800,1000),
+                'humid': random.randint(800,1000),
+                'press': random.randint(800,1000),
+            }
+
+            dt = datetime.now()
+            ctime = dt.strftime("%l:%M:%S, %p, %Y-%m-%d") # pm 05:34:57 July 16 Mon 2017
+
+            data = ctime + ", %s, %s, %s\n" % (sense['temp'], sense['humid'], sense['press'])
+            print("%s-line's added=" % str(lines+1), data)
+
+            f.write(data)
+            lines +=1
+            time.sleep(interval)    # second
 
 
 def read_file():
     with open(DESTIN_DIR+MY_HAT, 'r', encoding='utf8') as f:
-        int_number = count_lines()    # <class 'int'>
-        for n in range(int_number):
+        lines = count_lines()    # <class 'int'>
+        for n in range(lines):
             line = f.readline()
-            print(line, "")
+            print(line, "\n")
 
 
 def is_argv():      # False or True
@@ -181,4 +192,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
