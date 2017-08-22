@@ -1,7 +1,8 @@
+
 import os, sys, csv, random, time
 from datetime import datetime
-# from sense_HAT import func_HAT as fh    # get_sense, TABLE
-''' change sense_HAT module @ RPI3
+# from sense_HAT import func_HAT as fh          # get_sense, TABLE
+''' change DICT vari. 'sense' to sense_HAT values, when adopt to RSPi3
 '''
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -11,8 +12,9 @@ import numpy as np
 def get_variable():
     global DESTIN_DIR, MY_HAT, HELP_MESSAGE, HEADER
 
-    DESTIN_DIR='./data_doc/'
     MY_HAT = 'log_HAT.pdb'
+    # DESTIN_DIR= os.path.join(os.path.dirname(__file__), 'data_doc')
+    DESTIN_DIR= './data_doc'
 
     HELP_MESSAGE='''\n\n\
     ====================================================
@@ -86,7 +88,7 @@ def add_lines(interval=10, count=3):
 
 
 def read_file():
-    with open(DESTIN_DIR+MY_HAT, 'r', encoding='utf8') as f:
+    with open(DESTIN_DIR + MY_HAT, 'r', encoding='utf8') as f:
         lines = count_lines()    # <class 'int'>
         for n in range(lines):
             line = f.readline()
@@ -102,6 +104,7 @@ def is_argv():      # False or True
 
 def is_argv_act():      # False or True
     if is_argv() == False:
+        print(DESTIN_DIR)
         print('\n**** ERR: YOU NEED MORE THAN 1 Argv(option)! ****')
         print(HELP_MESSAGE)
         raise SystemExit(1)         # Exception and forced shutdown.
@@ -142,11 +145,11 @@ def get_chosen_data(pos, find_key):
         for row_list in csv_data:       # csv_dara = <class 'csv.reader'> = object type
             if row_num == 0:
                 header = row_list
-                row_num +=1
+                row_num += 1
 
             if row_list[pos].find(find_key) != -1:   # find()= position call
                 CHOSEN_DATA.append(row_list)
-                row_num +=1
+                row_num += 1
 
     return CHOSEN_DATA
 
