@@ -14,7 +14,7 @@ def get_variable():
 
     MY_HAT = 'log_HAT.pdb'
     # DESTIN_DIR= os.path.join(os.path.dirname(__file__), 'data_doc')
-    DESTIN_DIR= './data_doc'
+    DESTIN_DIR= './data_doc/'
 
     HELP_MESSAGE='''\n\n\
     ====================================================

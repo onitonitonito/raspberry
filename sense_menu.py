@@ -2,6 +2,7 @@
 
 from sense_hat import *
 import numpy as np
+import sys
 
 # Draw the foreground (fg) into a numpy array
 Rd = (255, 0, 0)
@@ -9,6 +10,7 @@ Gn = (0, 255, 0)
 Bl = (0, 0, 255)
 Gy = (128, 128, 128)
 __ = (0, 0, 0)
+
 fg = np.array([
     [Rd, Rd, Rd, __, Gn, Gn, __, __],
     [__, Rd, __, __, Gn, __, Gn, __],
@@ -19,6 +21,7 @@ fg = np.array([
     [Bl, __, Bl, __, Gy, __, Gy, __],
     [Bl, __, Bl, __, __, Gy, Gy, __],
     ], dtype=np.uint8)
+
 # Mask is a boolean array of which pixels are transparent
 mask = np.all(fg == __, axis=2)
 
@@ -73,12 +76,17 @@ hat.low_light = True
 selection = 'T'
 
 while True:
-    display(hat, selection)
-    event = hat.stick.wait_for_event()
-    if event.action == ACTION_PRESSED:
-        if event.direction == DIRECTION_MIDDLE:
-            if execute(hat, selection):
-                break
-        else:
-            selection = move(selection, event.direction)
+    try:
+        display(hat, selection)
+        event = hat.stick.wait_for_event()
+        if event.action == ACTION_PRESSED:
+            if event.direction == DIRECTION_MIDDLE:
+                if execute(hat, selection):
+                    break
+            else:
+                selection = move(selection, event.direction)
+
+    except KeyboardInterrupt:
+        hat.clear()
+        sys.exit()
 hat.clear()
