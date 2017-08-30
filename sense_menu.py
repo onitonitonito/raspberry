@@ -1,7 +1,7 @@
 #! /usr/bin/python
-
 from sense_hat import *
 import numpy as np
+import sys
 
 # Draw the foreground (fg) into a numpy array
 Rd = (255, 0, 0)
@@ -75,12 +75,17 @@ hat.low_light = True
 selection = 'T'
 
 while True:
-    display(hat, selection)
-    event = hat.stick.wait_for_event()
-    if event.action == ACTION_PRESSED:
-        if event.direction == DIRECTION_MIDDLE:
-            if execute(hat, selection):
-                break
-        else:
-            selection = move(selection, event.direction)
+    try:
+        display(hat, selection)
+        event = hat.stick.wait_for_event()
+        if event.action == ACTION_PRESSED:
+            if event.direction == DIRECTION_MIDDLE:
+                if execute(hat, selection):
+                    break
+            else:
+                selection = move(selection, event.direction)
+
+    except KeyboardInterrupt:
+        hat.clear()
+        sys.exit()
 hat.clear()
