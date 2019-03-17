@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+# SenseHat Joy Stick
+
+"""
 from sense_hat import SenseHat
 
 # Draw the foreground (fg) into a numpy array
@@ -9,8 +13,10 @@ Gy = (128, 128, 128)
 __ = (0, 0, 0)
 
 x = y = 4
+(x,y) = 4
 
 hat = SenseHat()
+
 hat.rotation = 0
 hat.low_light = True
 

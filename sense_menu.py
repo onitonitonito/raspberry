@@ -1,4 +1,7 @@
 #! /usr/bin/python
+"""
+# sense HAT - menu
+"""
 from sense_hat import *
 import numpy as np
 import sys
