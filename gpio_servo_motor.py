@@ -1,9 +1,18 @@
-# Including Library
-import RPi.GPIO as GPIO
+#! /usr/bin/python
+
 import time
+import RPi.GPIO as GPIO
 
 # Define Using PinNo and Other Variables
 PWM_PIN = 18
+
+def main():
+    setup()
+    try:
+        loop()
+    except KeyboardInterrupt:
+        pwm.stop()
+        GPIO.cleanup()
 
 def setup():
     global pwm
@@ -29,14 +38,6 @@ def loop():
         # Duty Change
         pwm.ChangeDutyCycle(2.5)
         time.sleep(3)
-
-def main():
-    setup()
-    try:
-        loop()
-    except KeyboardInterrupt:
-        pwm.stop()
-        GPIO.cleanup()
 
 
 if __name__ == '__main__':

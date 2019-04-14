@@ -1,14 +1,25 @@
-#!/usr/bin/python3
+#! /usr/bin/python3
+"""
+# Pyfirmata LED(13) Blinking TEST
+# Arduino Link with USB on Rpi3
+# - INPUT   = 2, 3, 4, 5, 6, 7
+# - OUTPUT  = 8, 9, 10, 11, 12, 13
+
+"""
+
 from pyfirmata import Arduino, util
 import time
-''' Pyfirmata LED(13) Blinking TEST
-Arduino Link with USB on Rpi3
-# input = 2, 3, 4, 5, 6, 7
-# output = 8, 9, 10, 11, 12, 13
-'''
+
 # initialize Serial Port
 port = '/dev/ttyACM0'
 BOARD = Arduino(port)
+
+def main():
+    setup()
+    try:
+        loop()
+    except KeyboardInterrupt:
+        GPIO.cleanup()
 
 def setup():
     global set_pins, pins_in, pins_out
@@ -51,14 +62,6 @@ def loop():
         time.sleep(0.5)
 
         count += 1
-
-
-def main():
-    setup()
-    try:
-        loop()
-    except KeyboardInterrupt:
-        GPIO.cleanup()
 
 if __name__ == '__main__':
     main()

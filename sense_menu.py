@@ -35,16 +35,18 @@ def display(hat, selection):
         'Q': (4, 4, 8, 8),
         'H': (0, 4, 4, 8),
         }[selection]
+
     bg = np.zeros((8, 8, 3), dtype=np.uint8)
     bg[top:bottom, left:right, :] = (255, 255, 255)
     # Construct final pixels from bg array with non-transparent elements of
     # the menu array
+
     hat.set_pixels([
         bg_pix if mask_pix else fg_pix
         for (bg_pix, mask_pix, fg_pix) in zip(
-            (p for row in bg for p in row),
-            (p for row in mask for p in row),
-            (p for row in fg for p in row),
+                (p for row in bg for p in row),
+                (p for row in mask for p in row),
+                (p for row in fg for p in row),
             )
         ])
 

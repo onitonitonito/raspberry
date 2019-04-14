@@ -1,13 +1,18 @@
 #!/usr/bin/python3
-from pyfirmata import Arduino, util
-import sys, time
-'''  Arduino Shield - Digital INPUT.
- DFRobot Non-contact Liquid Level Sensor XKC-Y25-T12V SKU: SEN0204
- #1, 7, 8, 15 : DFRobot Water level sensor kit
- #21,20,16,12 : Arduino Water level sensor
-'''
+"""
+# Arduino Shield - Digital INPUT.
+# DFRobot Non-contact Liquid Level Sensor XKC-Y25-T12V SKU: SEN0204
+# 1, 7, 8, 15 : DFRobot Water level sensor kit
+# 21,20,16,12 : Arduino Water level sensor
+"""
+print(__doc__)
 
-INTERVAL = 1              # in second
+import sys
+import time
+
+from pyfirmata import Arduino, util
+
+INTERVAL = 1                # in second
 
 # Creates a new BOARD
 PORT = '/dev/ttyACM0'       # Extention Port
@@ -16,10 +21,20 @@ BOARD = Arduino(PORT)
 # Definition of the analog pin
 # PINS = (0, 1, 2, 3)
 PINS = (0, 1, 2, 3, 4, 5)
-print("Setting up the connection to the BOARD ...")
 
-it = util.Iterator(BOARD)
-it.start()
+print("*** Setting up the connection to the BOARD ...")
+
+iter_some = util.Iterator(BOARD)
+iter_some.start()
+
+def main():
+    setup()
+
+    try:
+        loop()
+    except KeyboardInterrupt:
+        sys.exit()
+        BOARD.exit()
 
 def setup():
     # Start reporting for defined pins
@@ -37,14 +52,7 @@ def loop():
         BOARD.pass_time(INTERVAL)
         count += 1
 
-def main():
-    setup()
 
-    try:
-        loop()
-    except KeyboardInterrupt:
-        sys.exit()
-        BOARD.exit()
 
 if __name__ == '__main__':
     main()
