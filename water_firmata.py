@@ -4,7 +4,6 @@
 # DFRobot Non-contact Liquid Level Sensor XKC-Y25-T12V SKU: SEN0204
 # #1, 7, 8, 15 : DFRobot Water level sensor kit
 # #21,20,16,12 : Arduino Water level sensor
-#
 """
 import sys
 import time
@@ -25,7 +24,7 @@ def main():
         loop()
     except KeyboardInterrupt:
         sys.exit()
-        
+
 
 def setup():
     """ IO pin setup """

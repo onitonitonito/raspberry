@@ -43,6 +43,7 @@ def setup():
 
 def loop():
     count = 1
+
     while True:
         # Loop for reading the input. Duration approx. 10 s
         print("\nValues after %s second(s) --- %s times " % (INTERVAL, count))
