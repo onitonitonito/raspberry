@@ -8,10 +8,10 @@ from sense_hat import SenseHat
 
 hat = SenseHat()
 
-RED = 		(255, 	0, 		0)
+RED   = 	(255, 	0, 		0)
 GREEN = 	(0, 	150, 	0)
-BLUE = 	    (0, 	100,	255)		# BlightBlue
-WHITE=      (130,	130,	130)
+BLUE  =     (0, 	100,	255)		# BlightBlue
+WHITE =     (130,	130,	130)
 
 def clamp(value, min_value, max_value):
     return min(max_value, max(min_value, value))

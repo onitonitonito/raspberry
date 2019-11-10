@@ -1,10 +1,10 @@
 #!/bin/bash
-
-# reference(Rpi village) = http://www.rasplay.org/?p=7174
-# * https://sourceforge.net/projects/mjpg-streamer/
-# * https://github.com/codewithpassion/mjpg-streamer
-# * https://github.com/liamfraser/mjpg-streamer
-
+"""
+# Reference (Rpi village) = http://www.rasplay.org/?p=7174
+# https://sourceforge.net/projects/mjpg-streamer/
+# https://github.com/codewithpassion/mjpg-streamer
+# https://github.com/liamfraser/mjpg-streamer
+"""
 # i: delay.............: 200
 # i: resolution........: 640 x 480
 # i: camera parameters..............:
