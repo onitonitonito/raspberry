@@ -18,4 +18,4 @@ SENS = []
 SENS.append([1, 7, 8, 25])
 SENS.append([24, 23])
 SENS.append([18, 15, 14])
-print(SENS)
+print(SENS) 
